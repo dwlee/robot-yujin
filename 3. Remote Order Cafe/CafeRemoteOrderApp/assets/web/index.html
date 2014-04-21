@@ -10,43 +10,43 @@
 
     <style>
         #page {
-            width: 100%;
-            height: 100%;
-            padding: 0;
+        width: 100%;
+        height: 100%;
+        padding: 0;
         }
 
         #map-canvas {
-            width: 100%;
-            height: 200px;
+        width: 100%;
+        height: 200px;
         }
 
         ul.list-hor {
-            list-style: none;
-            width: 100%;
-            display: block;
+        list-style: none;
+        width: 100%;
+        display: block;
         }
 
         ul.list-hor > li {
-            width: 200px;
-            list-style: none;
-            float: left;
+        width: 200px;
+        list-style: none;
+        float: left;
         }
 
         .menuitem {
-            width: 100%;
+        width: 100%;
         }
 
         div.menuitem-blk {
-            text-align: center;
-            font-weight: bold;
+        text-align: center;
+        font-weight: bold;
         }
 
         input.in-small {
-            width: 40px;
+        width: 40px;
         }
 
         .hor-children > * {
-            float: left;
+        float: left;
         }
     </style>
 
@@ -221,15 +221,21 @@ $(document).on("pageinit", "#page", function () {
     var directionsDisplay = new google.maps.DirectionsRenderer();
     var directionsService = new google.maps.DirectionsService();
 
+    //add for test
+    var test_cnt = 10;
+
     if (navigator.geolocation) {
         function success(pos) {
-            // Location found, show map with these coordinates
-            lastLocation = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-            drawMap(lastLocation);
+            //// Location found, show map with these coordinates
+
+            //comment for test
+            //lastLocation = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+            //drawMap(lastLocation);
         }
 
         function fail(error) {
-            drawMap(lastLocation);  // Failed to find location, show default map
+            //comment for test
+            //drawMap(lastLocation);  // Failed to find location, show default map
         }
 
         // Find the users current position.  Cache the location for 5 minutes, timeout after 6 seconds
@@ -242,6 +248,14 @@ $(document).on("pageinit", "#page", function () {
     // Functions
     // ------------------------------------------------
     function calcRoute(isUpdating) {
+        //add for test
+        if(test_cnt >0){
+            test_cnt-=1;
+            lastLocation = new google.maps.LatLng(37.476025+test_cnt/100, 126.882318+test_cnt/100);
+            drawMap(lastLocation);
+        }
+        //
+
         var orderInfo;
         if(!isUpdating) {
             orderInfo = packOrderMenu();
@@ -268,15 +282,18 @@ $(document).on("pageinit", "#page", function () {
                 // alert(JSON.stringify(response));
                 // Time Zone: response.routes[0].legs[0].arrival_time.time_zone
                 // Value: response.routes[0].legs[0].arrival_time.value
-
                 arrivalTime = new Date(response.routes[0].legs[0].arrival_time.value);
+                ms = moment(arrivalTime).diff(moment(new Date()));
+                remainedTime = Math.round(moment.duration(ms).asMinutes());
+
                 if(isUpdating == undefined || isUpdating == false) {
                     // Pack menus
                     order(orderInfo, arrivalTime);
                 } else {
-                    updateOrder(arrivalTime);
-                    if(arrivalTime < 5) {
+                    updateOrder(remainedTime);
+                    if(remainedTime < 30) {
                         stopOrderUpdating();
+
                     }
                 }
             }
@@ -347,7 +364,8 @@ $(document).on("pageinit", "#page", function () {
 
         // Start updating order
         stopOrderUpdating();
-        orderUpdatingTimer = setInterval(startUpdating, 60000);
+        //orderUpdatingTimer = setInterval(startUpdating, 60000);
+        orderUpdatingTimer = setInterval(startUpdating, 10000);
     }
 
     var orderUpdatingTimer;
@@ -355,9 +373,10 @@ $(document).on("pageinit", "#page", function () {
         calcRoute(true);
     }
 
-    function updateOrder(expectedArrivalTime) {
-        ms = moment(expectedArrivalTime).diff(moment(new Date()));
-        remainedTime = Math.round(moment.duration(ms).asMinutes());
+    function updateOrder(expectedRemainedTime) {
+        //comment for test
+        //ms = moment(expectedArrivalTime).diff(moment(new Date()));
+        //remainedTime = Math.round(moment.duration(ms).asMinutes());
 
         // ROS topics and messages
         var orderUpdateTopic = new ROSLIB.Topic({
@@ -368,10 +387,9 @@ $(document).on("pageinit", "#page", function () {
 
         var orderUpdateMsg = new ROSLIB.Message({
             name: orderUID,
-            estimated_arrival: parseInt(remainedTime),
+            estimated_arrival: parseInt(expectedRemainedTime),
             status: 0
         });
-
         orderUpdateTopic.publish(orderUpdateMsg);
     }
 
