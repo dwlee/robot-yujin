@@ -156,7 +156,6 @@ $(function() {
         e.preventDefault();
     });
     $(".btn-minus").on("touchstart", function (e) {
-        console.log("minus");
         if(inProgress == true) {
             dialogInprogress.dialog("open");
             return;
@@ -171,7 +170,6 @@ $(function() {
         e.preventDefault();
     });
     $(".btn-plus").on("touchstart", function (e) {
-        console.log("plus");
         if(inProgress == true) {
             dialogInprogress.dialog("open");
             return;
@@ -183,7 +181,17 @@ $(function() {
         e.stopPropagation();
         e.preventDefault();
     });
-
+    
+    
+    $(".section-header-menu").on("touchstart", function (e) {
+        if($(".section-content-menu").css("display") == "none"){
+            $(".section-content-menu").show();
+        } else {
+            $(".section-content-menu").hide();
+        }
+    });
+    
+  
     // ------------------------------------------------
     // Navigation
     // ------------------------------------------------
@@ -211,18 +219,17 @@ $(function() {
     if (navigator.geolocation) {
         function success(pos) {
             // Location found, show map with these coordinates
-            console.log("navigator.geolocation success");
             lastLocation = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
             drawMap(lastLocation);
         }
 
         function fail(error) {
-            console.log("navigator.geolocation Fail: ",error);
+            console.log("navigator.geolocation Fail");
             drawMap(lastLocation);  // Failed to find location, show default map
         }
 
         // Find the users current position.  Cache the location for 5 minutes, timeout after 6 seconds
-        navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 10000, enableHighAccuracy: true, timeout: 5000});
+        navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 5000, enableHighAccuracy: true, timeout: 5000});
     } else {
         // No geolocation support, show default map
         console.log("No geolocation support, show default map");        
@@ -232,6 +239,13 @@ $(function() {
     // Functions
     // ------------------------------------------------
     function calcRoute(from, to, isUpdating) {
+        $("#lb-status").html("calcRoute");
+        var dist = Math.abs(lastLocation.lat()-destination.lat())+Math.abs(lastLocation.lng()-destination.lng());
+        if (dist < 0.001){
+            finishSimulation();
+            return;
+        }
+        
         var request = {
             origin: from,
             destination: to,
@@ -240,16 +254,12 @@ $(function() {
         };
 
         directionsService.route(request, function (response, status) {
-            // Handling OVER_QUERY_LIMIT
-//            alert(status);
+            
             if (status == google.maps.DirectionsStatus.OK) {
                 directionsDisplay.setDirections(response);
-                // alert(JSON.stringify(response));
-                // Time Zone: response.routes[0].legs[0].arrival_time.time_zone
-                // Value: response.routes[0].legs[0].arrival_time.value
 
                 var arrivalTime;
-                if(response.routes[0].legs[0].arrival_time == undefined) {
+                if(response.routes[0].legs[0].arrival_time == undefined) {    
                     arrivalTime = moment(new Date()).add('minutes', 5);
                 } else {
                     arrivalTime = new Date(response.routes[0].legs[0].arrival_time.value);
@@ -257,38 +267,34 @@ $(function() {
 
                 if(isUpdating == undefined || isUpdating == false) {
                     order(orderInfo, arrivalTime);
-                } else {
+                }
+                else {
                     updateOrder(arrivalTime);
                 }
-                
-                navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 10000, enableHighAccuracy: true, timeout: 5000});
-                /*
-                if(routePointIdx < routePoints.length-1) {
-                    setTimeout(function() {
-                        calcRoute(routePoints[++routePointIdx], destination, true);
-                    }, 7000);
-                } else {
-                    // Finish simulation
-                    finishSimulation();
-                }
-                */
 
+                setTimeout(function() {
+                    calcRoute(lastLocation, destination, true);
+                    }, 6000);
+                    
             } else if(status == google.maps.DirectionsStatus.OVER_QUERY_LIMIT) {
                 setTimeout(function() {
-                    $("#lb-status").html(statusLbs[1]);
+                    $("#lb-status").html(statusLbs[3]);
                     calcRoute(lastLocation, destination, true);
-                    }, 5000);
+                    }, 10000);
             } else if(status == google.maps.DirectionsStatus.UNKNOWN_ERR) {
                 $("#lb-status").html(statusLbs[4]);
                 finishSimulation();
             }
         });
+        navigator.geolocation.getCurrentPosition(success, fail, {maximumAge: 5000, enableHighAccuracy: true, timeout: 5000});
     }
 
     function finishSimulation() {
+        console.log(finishSimulation);
         inProgress = false;
         $("#lb-status").html(statusLbs[2]);
         resetMenu();
+        $(".section-content-menu").show();
     }
 
     function packOrderMenu() {
@@ -313,7 +319,7 @@ $(function() {
     }
 
     function order(menuItems, expectedArrivalTime) {
-
+        $(".section-content-menu").hide();
         // Display expected arrival time
         ms = moment(expectedArrivalTime).diff(moment(new Date()));
         remainedTime = Math.round(moment.duration(ms).asMinutes());
@@ -359,11 +365,6 @@ $(function() {
             name : '/cafe/remote_order_status',
             messageType : 'cafe_msgs/RemoteOrderStatus'
         });
-
-//            orderStatusTopic.subscribe(function(message) {
-////                alert(message.data);
-////                listener.unsubscribe();
-//            });
     }
 
     function updateOrder(expectedArrivalTime) {
@@ -576,7 +577,7 @@ $(function() {
     </div>
 </div>
 <div class="section horizontal">
-    <div style="width: 70%">
+    <div style="width: 50%">
         <div class="section-header">
             <h2>Expectation</h2>
         </div>
@@ -585,7 +586,7 @@ $(function() {
             <label>Remained Time:</label><input readonly="readonly" id="remained-time">
         </div>
     </div>
-    <div style="width: 30%">
+    <div style="width: 50%">
         <div class="section-header">
             <h2>Status</h2>
         </div>
@@ -595,17 +596,17 @@ $(function() {
     </div>
 </div>
 <div class="section">
-    <div class="section-header">
+    <div class="section-header section-header-menu">
         <h2>Menu</h2>
     </div>
-    <div class="section-content">
+    <div class="section-content section-content-menu">
         <ul>
             <li class="item">
                 <div style="float: left; width: 20%">
                     <img src="./res/americano.png" class="menu-img">
                 </div>
                 <div style="float: left; width: 40%">
-                    <h3>Americano</h3>
+                    <b>Americano</b>
                     <p>2,000 won</p>
                 </div>
                 <div class="horizontal" style="float: right; margin-top: 3%">
@@ -619,7 +620,7 @@ $(function() {
                     <img src="./res/iced-americano.png" class="menu-img">
                 </div>
                 <div style="float: left; width: 40%">
-                    <h3>Iced Americano</h3>
+                    <b>Iced Americano</b>
                     <p>2,500 won</p>
                 </div>
                 <div class="horizontal" style="float: right; margin-top: 3%">
@@ -633,7 +634,7 @@ $(function() {
                     <img src="./res/cafe-latte.png" class="menu-img">
                 </div>
                 <div style="float: left; width: 40%">
-                    <h3>Latte</h3>
+                    <b>Latte</b>
                     <p>2,500 won</p>
                 </div>
                 <div class="horizontal" style="float: right; margin-top: 3%">
@@ -647,13 +648,13 @@ $(function() {
                     <img src="./res/iced_cafe-latte.png" class="menu-img">
                 </div>
                 <div style="float: left; width: 40%">
-                    <h3>Iced Latte</h3>
+                    <b>Iced Latte</b>
                     <p>3,000 won</p>
                 </div>
                 <div class="horizontal" style="float: right; margin-top: 3%">
-                    <div class="btn-minus" style="float: right; margin-left: 3%">-</div>
+                    <div class="btn-minus">-</div>
                     <label class="lb-quantity" name="Iced Latte">0</label>
-                    <div class="btn-plus" style="float: right; margin-right: 3%">+</div>
+                    <div class="btn-plus">+</div>
                 </div>
             </li>
         </ul>
