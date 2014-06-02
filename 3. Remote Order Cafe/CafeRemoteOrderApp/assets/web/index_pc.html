@@ -100,6 +100,33 @@ $(function() {
             }
         }
     });
+    
+    var dialogPayment = $("#dialog-payment");
+    dialogPayment.dialog({
+        autoOpen: false,
+        closeOnEscape: false,
+        resizable: false,
+        height: "auto",
+        modal: true,
+        buttons: {
+            "Buy": function(e) {
+                $( this ).dialog( "close" );
+
+                currentMarker.setMap(null);
+                inProgress = true;
+                $("#lb-status").html(statusLbs[1]);
+                calcRoute(lastLocation, destination, false);
+
+                e.stopPropagation();
+                e.preventDefault();
+            },
+            Cancel: function(e) {
+                $( this ).dialog( "close" );
+                e.stopPropagation();
+                e.preventDefault();
+            }
+        }
+    });
 
     // Called form Android
     function listenBackButtonPressed() {
@@ -111,85 +138,168 @@ $(function() {
     var orderUID; // uid of order
     var orderInfo; // Packed order info; JSON
 
-    var routePointIdx = 0; // Idx for simulation
     var currentMarker;
-
     var inProgress = false;
-
     var statusLbs = ["Ready", "In Progress", "Completed", "OVER_QUERY_LIMIT", "FAILED"];
 
-    var ipsetting = [{title:"CafeDoroty",ip:"192.168.10.131:9090"},
-                     {title:"Contorol Room",ip:"192.168.10.131:9090"},
-                     {title:"jihoonl pc",ip:"192.168.10.129:9090"},
-                     {title:"dwlee pc",ip:"192.168.10.128:9090"},
+    var ipsetting = [{title:"Dorothy Cafe",ip:"192.168.10.131:9090"},
+                     {title:"MapoNaru",ip:"192.168.10.131:9090"},
+                     {title:"Alley Pub",ip:"192.168.10.129:9090"},
+                     {title:"Paris Baguette",ip:"192.168.10.128:9090"},
                      ];
+
+    var cards = [{image:"./res/card_1.png",number:"1234-5678-****-****",name:"card_1"},
+                 {image:"./res/card_2.png",number:"1234-5678-****-****",name:"card_2"},];
+
+    var menus = [
+                 {"name":"Dorothy Cafe","menu":[{"name":"Americano","price":"2000",image:"./res/americano.png"},
+                                               {"name":"Ice-Americano","price":"2500",image:"./res/iced-americano.png"},
+                                               {"name":"Latte","price":"2500",image:"./res/cafe-latte.png"},
+                                               {"name":"Ice-Latte","price":"3000",image:"./res/iced_cafe-latte.png"}]},
+                 {"name":"MapoNaru","menu":[{"name":"Bo-Ssam","price":"2000",image:"./res/bossam.png"},
+                                               {"name":"Jok-Bal","price":"2500",image:"./res/jokbal.png"},
+                                               {"name":"Mo-Dum-Jun","price":"2500",image:"./res/modumjun.png"},
+                                               {"name":"Gal-Bi-Tang","price":"3000",image:"./res/galbitang.png"}]},
+                 {"name":"Alley Pub","menu":[{"name":"Beer","price":"2000",image:"./res/beer.png"},
+                                               {"name":"Soju","price":"2500",image:"./res/soju.png"},
+                                               {"name":"French-Fries","price":"2500",image:"./res/frenchfries.png"},
+                                               {"name":"Chicken","price":"3000",image:"./res/chicken.png"}]},
+                 {"name":"Paris Baguette","menu":[{"name":"Sandwich","price":"2000",image:"./res/sandwich.png"},
+                                               {"name":"Sausage bread","price":"2500",image:"./res/sausagebread.png"},
+                                               {"name":"Toast","price":"2500",image:"./res/toast.png"},
+                                               {"name":"Baguette","price":"3000",image:"./res/baguette.png"}]},
+                ];
+  
     var i = 0;
+  
     for(i = 0; i < ipsetting.length; i++){
         $(".remote-server-combobox").append("<option value='"+i+"'>"+ipsetting[i].title+"</option>");
     }
-                         
+        
+    var card_contents = '<fieldset><legend><b>Card Information</b></legend>';
+    var card_template = '<div style="float: left; width: 30%"><img src="&&card_image&&" style="margin: 5px; width:80%"></div><div class="card-name &&card_name&&" style="float: left; width: 70%"><h3>&&card_number&&</h3></div></p>'
+    for(i = 0; i < cards.length; i++){
+        card_contents += card_template.replace(/&&card_name&&/gi,cards[i].name).replace(/&&card_image&&/gi,cards[i].image).replace(/&&card_number&&/gi,cards[i].number);
+    }
+    card_contents += "</fieldset>"
+    
+    var menu_contents = '';
+    var menu_template = '<li class="item"><div style="float: left; width: 20%"><img src="&&menu_image&&" class="menu-img" style="margin: 5px; width:80%" ></div><div style="float: left; width: 40%"><b>&&menu_name&&</b><p>&&menu_price&& won</p></div><div class="horizontal" style="float: right; margin-top: 3%"><div class="btn-minus">-</div><label class="lb-quantity" name=&&menu_name&& price=&&menu_price&&>0</label><div class="btn-plus">+</div></div></li>';
+    menu_contents = '<ul>';
+    for(i = 0; i < menus[0].menu.length; i++){
+        menu_contents += menu_template.replace(/&&menu_name&&/gi,menus[0].menu[i].name).replace(/&&menu_image&&/gi,menus[0].menu[i].image).replace(/&&menu_price&&/gi,menus[0].menu[i].price);
+    }
+    menu_contents += '</ul>';
+
+    $(".page-header").html("<h1>"+$(".remote-server-combobox option:selected").text()+" Remote Order App</h1>")
+    $(".section-content-menu").html(menu_contents);                  
     $("#lb-status").html(statusLbs[0]);
 
     // ------------------------------------------------
     // Event handlers
     // ------------------------------------------------
-    $("#btn-order").on("touchstart", function(e) {
-        orderInfo = packOrderMenu();
+    $('.remote-server-combobox').change(function(){
+        var selected_server = $(".remote-server-combobox option:selected").text();
+        i = 0;
+        for(i = 0; i < menus.length; i++){
+            
+            if (menus[i].name === selected_server){
+                menu_contents = '<ul>';
+                for(j = 0; j < menus[i].menu.length; j++){
+                    menu_contents += menu_template.replace(/&&menu_name&&/gi,menus[i].menu[j].name).replace(/&&menu_image&&/gi,menus[i].menu[j].image).replace(/&&menu_price&&/gi,menus[i].menu[j].price);
+                }
+                menu_contents += '</ul>';
+                $(".section-content-menu").html(menu_contents);
 
+                break;
+            }
+        }
+        setButtonHandler();
+        $(".page-header").html("<h1>"+selected_server+" Remote Order App</h1>")
+
+    });
+    
+    $(".section-header-menu").on("touchstart", function (e) {
+        if($(".section-content-menu").css("display") == "none"){
+            $(".section-content-menu").show();
+            $(".section-header-menu").html("<h2>Menu &#9650;</h2>")
+        } else {
+            $(".section-content-menu").hide();
+            $(".section-header-menu").html("<h2>Menu &#9660;</h2>")
+        }
+    });
+    
+    $("#btn-order").on("touchstart", function(e) {
         if(inProgress == true) {
             dialogInprogress.dialog("open");
             return;
         }
-
+        
+        orderInfo = packOrderMenu();
         if(orderInfo == undefined || orderInfo == null) {
             dialogNoitem.dialog("open");
             return;
         }
 
-        currentMarker.setMap(null);
-        routePointIdx = 0;
-        inProgress = true;
-        $("#lb-status").html(statusLbs[1]);
-        calcRoute(lastLocation, destination, false);
-
-        e.stopPropagation();
-        e.preventDefault();
-    });
-    $(".btn-minus").on("touchstart", function (e) {
-        if(inProgress == true) {
-            dialogInprogress.dialog("open");
-            return;
+        $("#dialog-payment").html("");
+        var payment_contents = "<fieldset>";
+        payment_contents += "<legend><b>Order Information</b></legend>"
+        var total_price = 0;
+        for (i = 0; i < orderInfo.length; i++){
+            payment_contents += "<p><b>Name:</b> "+orderInfo[i].name+"</p>";
+            payment_contents += "<p><b>Qty.</b>: "+orderInfo[i].qty+ "<b>     Price</b>: "+orderInfo[i].price+" Won</p>";
+            payment_contents += "<hr/>";
+            total_price += orderInfo[i].price;
         }
-        numIn = $(this).parent().find("label.lb-quantity");
-        num = Number(numIn.html());
-        if (num > 0) {
-            numIn.html(num - 1);
-        }
+        payment_contents += "<p><b>Total Price:</b> "+total_price+" Won</p>";
+        payment_contents += "</fieldset>";
 
-        e.stopPropagation();
-        e.preventDefault();
-    });
-    $(".btn-plus").on("touchstart", function (e) {
-        if(inProgress == true) {
-            dialogInprogress.dialog("open");
-            return;
-        }
-        numIn = $(this).parent().find("label.lb-quantity");
-        num = Number(numIn.html());
-        numIn.html(num + 1);
+        $("#dialog-payment").append(payment_contents);
+        $("#dialog-payment").append(card_contents);
 
-        e.stopPropagation();
-        e.preventDefault();
+        dialogPayment.dialog("open");
+        if($("."+cards[0].name).length != 0){
+            $("."+cards[0].name).css("background","#FFA45F").css("opacity",".3").css("z-index","-1");
+        }
+        $(".card-name").on("touchstart", function(e) {
+           $(".card-name").css("background","").css("opacity","").css("z-index","");
+           $(e.currentTarget).css("background","#FFA45F").css("opacity",".3").css("z-index","-1");
+        });
+        
     });
     
+    function setButtonHandler(){
+        $(".btn-minus").on("touchstart", function (e) {
+            if(inProgress == true) {
+                dialogInprogress.dialog("open");
+                return;
+            }
+            numIn = $(this).parent().find("label.lb-quantity");
+            num = Number(numIn.html());
+            if (num > 0) {
+                numIn.html(num - 1);
+            }
+
+            e.stopPropagation();
+            e.preventDefault();
+        });
+        $(".btn-plus").on("touchstart", function (e) {
+            if(inProgress == true) {
+                dialogInprogress.dialog("open");
+                return;
+            }
+            numIn = $(this).parent().find("label.lb-quantity");
+            num = Number(numIn.html());
+            numIn.html(num + 1);
+
+            e.stopPropagation();
+            e.preventDefault();
+        });
+    };
+    setButtonHandler();
     
-    $(".section-header-menu").on("touchstart", function (e) {
-        if($(".section-content-menu").css("display") == "none"){
-            $(".section-content-menu").show();
-        } else {
-            $(".section-content-menu").hide();
-        }
-    });
+
+
     
   
     // ------------------------------------------------
@@ -290,7 +400,7 @@ $(function() {
     }
 
     function finishSimulation() {
-        console.log(finishSimulation);
+
         inProgress = false;
         $("#lb-status").html(statusLbs[2]);
         resetMenu();
@@ -303,7 +413,9 @@ $(function() {
         $("label.lb-quantity").each(function() {
             qty = parseInt($(this).html());
             total += qty;
-            order.push({name:$(this).attr("name"), size:2, qty:qty});
+            if(qty > 0){
+                order.push({name:$(this).attr("name"), size:2, qty:qty, price:$(this).attr("price")*qty});
+            }
         });
         if(total > 0) {
             return order;
@@ -351,7 +463,7 @@ $(function() {
                                 serverAddr = data.ip
                             }
                           });
-        console.log("server ip is ",serverAddr);
+
         if(serverAddr == undefined || serverAddr == "") {
             ros.connect('ws://localhost:9090');
         } else {
@@ -425,6 +537,8 @@ $(function() {
         while (s.length < size) s = "0" + s;
         return s;
     }
+
+    
 });
 </script>
 
@@ -437,6 +551,9 @@ $(function() {
 
     .ui-widget {
         font-size: 90%;
+    }
+    #dialog-payment{
+        height: auto;
     }
 
     .ui-dialog-titlebar-close {
@@ -577,94 +694,28 @@ $(function() {
     </div>
 </div>
 <div class="section horizontal">
-    <div style="width: 50%">
+    <div style="width: 100%">
         <div class="section-header">
-            <h2>Expectation</h2>
+            <h2>Estimated</h2>
         </div>
         <div class="section-content">
             <label>Arrival Time:</label><input readonly="readonly" id="arrival-time">
-            <label>Remained Time:</label><input readonly="readonly" id="remained-time">
-        </div>
-    </div>
-    <div style="width: 50%">
-        <div class="section-header">
-            <h2>Status</h2>
-        </div>
-        <div class="section-content">
-            <label id="lb-status"></label>
+            <label>Remaining:</label><input readonly="readonly" id="remained-time">
         </div>
     </div>
 </div>
 <div class="section">
     <div class="section-header section-header-menu">
-        <h2>Menu</h2>
+        <h2>Menu &#9650;</h2>
     </div>
     <div class="section-content section-content-menu">
-        <ul>
-            <li class="item">
-                <div style="float: left; width: 20%">
-                    <img src="./res/americano.png" class="menu-img">
-                </div>
-                <div style="float: left; width: 40%">
-                    <b>Americano</b>
-                    <p>2,000 won</p>
-                </div>
-                <div class="horizontal" style="float: right; margin-top: 3%">
-                    <div class="btn-minus">-</div>
-                    <label class="lb-quantity" name="Americano">0</label>
-                    <div class="btn-plus">+</div>
-                </div>
-            </li>
-            <li class="item">
-                <div style="float: left; width: 20%">
-                    <img src="./res/iced-americano.png" class="menu-img">
-                </div>
-                <div style="float: left; width: 40%">
-                    <b>Iced Americano</b>
-                    <p>2,500 won</p>
-                </div>
-                <div class="horizontal" style="float: right; margin-top: 3%">
-                    <div class="btn-minus">-</div>
-                    <label class="lb-quantity" name="Iced Americano">0</label>
-                    <div class="btn-plus">+</div>
-                </div>
-            </li>
-            <li class="item">
-                <div style="float: left; width: 20%">
-                    <img src="./res/cafe-latte.png" class="menu-img">
-                </div>
-                <div style="float: left; width: 40%">
-                    <b>Latte</b>
-                    <p>2,500 won</p>
-                </div>
-                <div class="horizontal" style="float: right; margin-top: 3%">
-                    <div class="btn-minus">-</div>
-                    <label class="lb-quantity" name="Latte">0</label>
-                    <div class="btn-plus">+</div>
-                </div>
-            </li>
-            <li class="item">
-                <div style="float: left; width: 20%">
-                    <img src="./res/iced_cafe-latte.png" class="menu-img">
-                </div>
-                <div style="float: left; width: 40%">
-                    <b>Iced Latte</b>
-                    <p>3,000 won</p>
-                </div>
-                <div class="horizontal" style="float: right; margin-top: 3%">
-                    <div class="btn-minus">-</div>
-                    <label class="lb-quantity" name="Iced Latte">0</label>
-                    <div class="btn-plus">+</div>
-                </div>
-            </li>
-        </ul>
     </div>
 </div>
 
 
 <div class="section">
     <div class="section-content">
-        <select id="cc" class="remote-server-combobox" name="dept" style="float: left; width: 70%; height: 40px; line-height: 30px; padding: 1%;">
+        <select id="cc" class="remote-server-combobox" name="dept" style="float: left; width: 70%; height: 47px; line-height: 40px; padding: 1%;">
         </select>
         <!--
             <input id="server-addr" placeholder="Server Address (Do not put any protocol prefix like 'http')"
@@ -684,6 +735,9 @@ $(function() {
 
 <div id="dialog-exit" title="Close App?">
     <p>Are you sure you want to quit?</p>
+</div>
+
+<div id="dialog-payment" title="Payment">
 </div>
 
 </body>

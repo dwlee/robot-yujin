@@ -8,7 +8,7 @@
     <uses-library android:name="com.google.android.maps"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher"
+    <application android:label="@string/app_name" android:icon="@drawable/rocon_log"
                  android:theme="@android:style/Theme.Holo.Light.NoActionBar">
         <activity android:name="MyActivity"
                   android:label="@string/app_name"
