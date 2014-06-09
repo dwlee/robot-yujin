@@ -142,15 +142,14 @@ $(function() {
     var inProgress = false;
     var statusLbs = ["Ready", "In Progress", "Completed", "OVER_QUERY_LIMIT", "FAILED"];
 
-    var ipsetting = [{title:"Dorothy Cafe",ip:"192.168.10.131:9090"},
-                     {title:"MapoNaru",ip:"192.168.10.131:9090"},
-                     {title:"Alley Pub",ip:"192.168.10.129:9090"},
-                     {title:"Paris Baguette",ip:"192.168.10.128:9090"},
+    var ipsetting = [{title:"Dorothy Cafe",ip:"10.189.22.146:9090"},
+                     {title:"MapoNaru",ip:"192.168.0.101:9090"},
+                     {title:"Alley Pub",ip:"192.168.0.101:9090"},
+                     {title:"Paris Baguette",ip:"192.168.0.101:9090"},
                      ];
 
-    var cards = [{image:"file:///android_asset/web/res/card_1.png",number:"1234-5678-****-****",name:"card_1"},
-                 {image:"file:///android_asset/web/res/card_2.png",number:"1234-5678-****-****",name:"card_2"},];
-
+    var cards = [{image:"file:///android_asset/web/res/0030_anwansoon.png",number:"1234-5678-****-****",name:"card_1"},
+                 {image:"file:///android_asset/web/res/0034_anwansoon.png",number:"1234-1234-****-****",name:"card_2"},];
     var menus = [
                  {"name":"Dorothy Cafe","menu":[{"name":"Americano","price":"2000",image:"file:///android_asset/web/res/americano.png"},
                                                {"name":"Ice-Americano","price":"2500",image:"file:///android_asset/web/res/iced-americano.png"},
@@ -177,14 +176,15 @@ $(function() {
     }
         
     var card_contents = '<fieldset><legend><b>Card Information</b></legend>';
-    var card_template = '<div style="float: left; width: 30%"><img src="&&card_image&&" style="margin: 5px; width:80%"></div><div class="card-name &&card_name&&" style="float: left; width: 70%"><h3>&&card_number&&</h3></div></p>'
+    var card_template = '<div class="card-info &&card_name&&"><div style="float: left; width: 20%"><img src="&&card_image&&" style="margin: 5px; width:80%"></div><div style="float: left; width: 70%"><h3>&&card_number&&</h3></div></div>'
     for(i = 0; i < cards.length; i++){
         card_contents += card_template.replace(/&&card_name&&/gi,cards[i].name).replace(/&&card_image&&/gi,cards[i].image).replace(/&&card_number&&/gi,cards[i].number);
+        
     }
     card_contents += "</fieldset>"
     
     var menu_contents = '';
-    var menu_template = '<li class="item"><div style="float: left; width: 20%"><img src="&&menu_image&&" class="menu-img" style="margin: 5px; width:80%" ></div><div style="float: left; width: 40%"><b>&&menu_name&&</b><p>&&menu_price&& won</p></div><div class="horizontal" style="float: right; margin-top: 3%"><div class="btn-minus">-</div><label class="lb-quantity" name=&&menu_name&& price=&&menu_price&&>0</label><div class="btn-plus">+</div></div></li>';
+    var menu_template = '<li class="item"><div style="float: left; width: 20%"><img src="&&menu_image&&" class="menu-img" style="margin: 5px; width:80%" ></div><div style="float: left; width: 40%"><b>&&menu_name&&</b><p>&#65510; &&menu_price&&</p></div><div class="horizontal" style="float: right; margin-top: 3%"><div class="btn-minus">-</div><label class="lb-quantity" name=&&menu_name&& price=&&menu_price&&>0</label><div class="btn-plus">+</div></div></li>';
     menu_contents = '<ul>';
     for(i = 0; i < menus[0].menu.length; i++){
         menu_contents += menu_template.replace(/&&menu_name&&/gi,menus[0].menu[i].name).replace(/&&menu_image&&/gi,menus[0].menu[i].image).replace(/&&menu_price&&/gi,menus[0].menu[i].price);
@@ -235,10 +235,17 @@ $(function() {
             return;
         }
         
-        orderInfo = packOrderMenu();
-        if(orderInfo == undefined || orderInfo == null) {
+        orderAllInfo = packOrderMenu();
+        if(orderAllInfo == undefined || orderAllInfo == null ) {
             dialogNoitem.dialog("open");
             return;
+        }
+        
+        orderInfo = [];
+        orderInfoPrice = [];
+        for (i = 0 ; i<orderAllInfo.length; i ++){
+            orderInfo.push(orderAllInfo[i][0]);
+            orderInfoPrice.push(orderAllInfo[i][1]);
         }
 
         $("#dialog-payment").html("");
@@ -247,11 +254,11 @@ $(function() {
         var total_price = 0;
         for (i = 0; i < orderInfo.length; i++){
             payment_contents += "<p><b>Name:</b> "+orderInfo[i].name+"</p>";
-            payment_contents += "<p><b>Qty.</b>: "+orderInfo[i].qty+ "<b>     Price</b>: "+orderInfo[i].price+" Won</p>";
+            payment_contents += "<p><b>Qty.</b>: "+orderInfo[i].qty+ "<b>     Price</b>: &#65510; "+orderInfoPrice[i]+"</p>";
             payment_contents += "<hr/>";
-            total_price += orderInfo[i].price;
+            total_price += orderInfoPrice[i];
         }
-        payment_contents += "<p><b>Total Price:</b> "+total_price+" Won</p>";
+        payment_contents += "<p><b>Total Price:</b> &#65510; "+total_price+"</p>";
         payment_contents += "</fieldset>";
 
         $("#dialog-payment").append(payment_contents);
@@ -259,13 +266,14 @@ $(function() {
 
         dialogPayment.dialog("open");
         if($("."+cards[0].name).length != 0){
-            $("."+cards[0].name).css("background","#FFA45F").css("opacity",".3").css("z-index","-1");
+            $("."+cards[0].name).css("height","54px").css("border","2px solid blue");
         }
-        $(".card-name").on("touchstart", function(e) {
-           $(".card-name").css("background","").css("opacity","").css("z-index","");
-           $(e.currentTarget).css("background","#FFA45F").css("opacity",".3").css("z-index","-1");
-        });
         
+        $(".card-info").on("touchstart", function(e) {
+           $(".card-info").css("border","");
+           $(e.currentTarget).css("height","54px").css("border","2px solid blue");
+        });
+
     });
     
     function setButtonHandler(){
@@ -414,7 +422,7 @@ $(function() {
             qty = parseInt($(this).html());
             total += qty;
             if(qty > 0){
-                order.push({name:$(this).attr("name"), size:2, qty:qty, price:$(this).attr("price")*qty});
+                order.push([{name:$(this).attr("name"), size:2, qty:qty}, $(this).attr("price")*qty]);
             }
         });
         if(total > 0) {

@@ -1,0 +1,614 @@
+_____________________________________________________________________
++ Program class: kr/co/smartylab/CafeRemoteOrderApp/MyActivity
+  Superclass:    android/app/Activity
+  Major version: 0x33
+  Minor version: 0x0
+  Access flags:  0x21
+    = public class kr.co.smartylab.CafeRemoteOrderApp.MyActivity extends android.app.Activity
+
+Interfaces (count = 0):
+
+Constant Pool (count = 138):
+  + Integer [2130903040]
+  + Integer [2131034112]
+  + String []
+  + String [LifecycleHelper]
+  + String [LocationProvider]
+  + String [file:///android_asset/]
+  + String [javascript:listenBackButtonPressed()]
+  + String [text/html]
+  + String [utf-8]
+  + String [web/index.html]
+  + Class [android/app/Activity]
+  + Class [android/content/res/AssetManager]
+  + Class [android/os/Bundle]
+  + Class [android/webkit/WebSettings]
+  + Class [android/webkit/WebView]
+  + Class [java/io/IOException]
+  + Class [java/io/InputStream]
+  + Class [java/lang/String]
+  + Class [kr/co/smartylab/CafeRemoteOrderApp/MyActivity]
+  + Class [kr/co/smartylab/CafeRemoteOrderApp/a]
+  + Class [kr/co/smartylab/CafeRemoteOrderApp/b]
+  + Class [kr/co/smartylab/CafeRemoteOrderApp/c]
+  + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.a Landroid/location/Location;]
+  + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.b Landroid/webkit/WebView;]
+  + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.c Lkr/co/smartylab/CafeRemoteOrderApp/c;]
+  + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.d Lkr/co/smartylab/CafeRemoteOrderApp/b;]
+  + Methodref [android/app/Activity.<init> ()V]
+  + Methodref [android/app/Activity.onCreate (Landroid/os/Bundle;)V]
+  + Methodref [android/app/Activity.onKeyDown (ILandroid/view/KeyEvent;)Z]
+  + Methodref [android/content/res/AssetManager.open (Ljava/lang/String;)Ljava/io/InputStream;]
+  + Methodref [android/webkit/WebSettings.setJavaScriptEnabled (Z)V]
+  + Methodref [android/webkit/WebView.addJavascriptInterface (Ljava/lang/Object;Ljava/lang/String;)V]
+  + Methodref [android/webkit/WebView.getSettings ()Landroid/webkit/WebSettings;]
+  + Methodref [android/webkit/WebView.loadDataWithBaseURL (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V]
+  + Methodref [android/webkit/WebView.loadUrl (Ljava/lang/String;)V]
+  + Methodref [android/webkit/WebView.setWebChromeClient (Landroid/webkit/WebChromeClient;)V]
+  + Methodref [java/io/IOException.printStackTrace ()V]
+  + Methodref [java/io/InputStream.available ()I]
+  + Methodref [java/io/InputStream.close ()V]
+  + Methodref [java/io/InputStream.read ([B)I]
+  + Methodref [java/lang/String.<init> ([B)V]
+  + Methodref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.findViewById (I)Landroid/view/View;]
+  + Methodref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.getAssets ()Landroid/content/res/AssetManager;]
+  + Methodref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.setContentView (I)V]
+  + Methodref [kr/co/smartylab/CafeRemoteOrderApp/a.<init> (Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;)V]
+  + Methodref [kr/co/smartylab/CafeRemoteOrderApp/b.<init> (Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;)V]
+  + Methodref [kr/co/smartylab/CafeRemoteOrderApp/c.<init> (Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;Landroid/webkit/WebView;)V]
+  + NameAndType [<init> ()V]
+  + NameAndType [<init> (Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;)V]
+  + NameAndType [<init> (Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;Landroid/webkit/WebView;)V]
+  + NameAndType [<init> ([B)V]
+  + NameAndType [a Landroid/location/Location;]
+  + NameAndType [addJavascriptInterface (Ljava/lang/Object;Ljava/lang/String;)V]
+  + NameAndType [available ()I]
+  + NameAndType [b Landroid/webkit/WebView;]
+  + NameAndType [c Lkr/co/smartylab/CafeRemoteOrderApp/c;]
+  + NameAndType [close ()V]
+  + NameAndType [d Lkr/co/smartylab/CafeRemoteOrderApp/b;]
+  + NameAndType [findViewById (I)Landroid/view/View;]
+  + NameAndType [getAssets ()Landroid/content/res/AssetManager;]
+  + NameAndType [getSettings ()Landroid/webkit/WebSettings;]
+  + NameAndType [loadDataWithBaseURL (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V]
+  + NameAndType [loadUrl (Ljava/lang/String;)V]
+  + NameAndType [onCreate (Landroid/os/Bundle;)V]
+  + NameAndType [onKeyDown (ILandroid/view/KeyEvent;)Z]
+  + NameAndType [open (Ljava/lang/String;)Ljava/io/InputStream;]
+  + NameAndType [printStackTrace ()V]
+  + NameAndType [read ([B)I]
+  + NameAndType [setContentView (I)V]
+  + NameAndType [setJavaScriptEnabled (Z)V]
+  + NameAndType [setWebChromeClient (Landroid/webkit/WebChromeClient;)V]
+  + Utf8 []
+  + Utf8 [()I]
+  + Utf8 [()Landroid/content/res/AssetManager;]
+  + Utf8 [()Landroid/webkit/WebSettings;]
+  + Utf8 [()V]
+  + Utf8 [(I)Landroid/view/View;]
+  + Utf8 [(I)V]
+  + Utf8 [(ILandroid/view/KeyEvent;)Z]
+  + Utf8 [(Landroid/os/Bundle;)V]
+  + Utf8 [(Landroid/webkit/WebChromeClient;)V]
+  + Utf8 [(Ljava/lang/Object;Ljava/lang/String;)V]
+  + Utf8 [(Ljava/lang/String;)Ljava/io/InputStream;]
+  + Utf8 [(Ljava/lang/String;)V]
+  + Utf8 [(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V]
+  + Utf8 [(Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;)V]
+  + Utf8 [(Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;Landroid/location/Location;)Landroid/location/Location;]
+  + Utf8 [(Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;Landroid/webkit/WebView;)V]
+  + Utf8 [(Z)V]
+  + Utf8 [([B)I]
+  + Utf8 [([B)V]
+  + Utf8 [<init>]
+  + Utf8 [Code]
+  + Utf8 [Landroid/location/Location;]
+  + Utf8 [Landroid/webkit/WebView;]
+  + Utf8 [LifecycleHelper]
+  + Utf8 [Lkr/co/smartylab/CafeRemoteOrderApp/b;]
+  + Utf8 [Lkr/co/smartylab/CafeRemoteOrderApp/c;]
+  + Utf8 [LocationProvider]
+  + Utf8 [StackMapTable]
+  + Utf8 [a]
+  + Utf8 [addJavascriptInterface]
+  + Utf8 [android/app/Activity]
+  + Utf8 [android/content/res/AssetManager]
+  + Utf8 [android/os/Bundle]
+  + Utf8 [android/webkit/WebSettings]
+  + Utf8 [android/webkit/WebView]
+  + Utf8 [available]
+  + Utf8 [b]
+  + Utf8 [c]
+  + Utf8 [close]
+  + Utf8 [d]
+  + Utf8 [file:///android_asset/]
+  + Utf8 [findViewById]
+  + Utf8 [getAssets]
+  + Utf8 [getSettings]
+  + Utf8 [java/io/IOException]
+  + Utf8 [java/io/InputStream]
+  + Utf8 [java/lang/String]
+  + Utf8 [javascript:listenBackButtonPressed()]
+  + Utf8 [kr/co/smartylab/CafeRemoteOrderApp/MyActivity]
+  + Utf8 [kr/co/smartylab/CafeRemoteOrderApp/a]
+  + Utf8 [kr/co/smartylab/CafeRemoteOrderApp/b]
+  + Utf8 [kr/co/smartylab/CafeRemoteOrderApp/c]
+  + Utf8 [loadDataWithBaseURL]
+  + Utf8 [loadUrl]
+  + Utf8 [onCreate]
+  + Utf8 [onKeyDown]
+  + Utf8 [open]
+  + Utf8 [printStackTrace]
+  + Utf8 [read]
+  + Utf8 [setContentView]
+  + Utf8 [setJavaScriptEnabled]
+  + Utf8 [setWebChromeClient]
+  + Utf8 [text/html]
+  + Utf8 [utf-8]
+  + Utf8 [web/index.html]
+
+Fields (count = 4):
+  + Field:        a Landroid/location/Location;
+    Access flags: 0x2
+      = private android.location.Location a
+  + Field:        b Landroid/webkit/WebView;
+    Access flags: 0x2
+      = private android.webkit.WebView b
+  + Field:        c Lkr/co/smartylab/CafeRemoteOrderApp/c;
+    Access flags: 0x2
+      = private kr.co.smartylab.CafeRemoteOrderApp.c c
+  + Field:        d Lkr/co/smartylab/CafeRemoteOrderApp/b;
+    Access flags: 0x2
+      = private kr.co.smartylab.CafeRemoteOrderApp.b d
+
+Methods (count = 4):
+  - Method:       <init>()V
+    Access flags: 0x1
+      = public MyActivity()
+    Class member attributes (count = 1):
+    + Code attribute instructions (code length = 5, locals = 1, stack = 1):
+      [0] aload_0 v0
+      [1] invokespecial #27
+        + Methodref [android/app/Activity.<init> ()V]
+      [4] return
+      Code attribute exceptions (count = 0):
+      Code attribute attributes (attribute count = 0):
+  + Method:       onCreate(Landroid/os/Bundle;)V
+    Access flags: 0x1
+      = public void onCreate(android.os.Bundle)
+    Class member attributes (count = 1):
+    + Code attribute instructions (code length = 182, locals = 7, stack = 6):
+      [0] aload_0 v0
+      [1] aload_1 v1
+      [2] invokespecial #28
+        + Methodref [android/app/Activity.onCreate (Landroid/os/Bundle;)V]
+      [5] aload_0 v0
+      [6] ldc #1
+        + Integer [2130903040]
+      [8] invokevirtual #44
+        + Methodref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.setContentView (I)V]
+      [11] aload_0 v0
+      [12] aload_0 v0
+      [13] ldc #2
+        + Integer [2131034112]
+      [15] invokevirtual #42
+        + Methodref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.findViewById (I)Landroid/view/View;]
+      [18] checkcast #15
+        + Class [android/webkit/WebView]
+      [21] putfield #24
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.b Landroid/webkit/WebView;]
+      [24] aload_0 v0
+      [25] new #22
+        + Class [kr/co/smartylab/CafeRemoteOrderApp/c]
+      [28] dup
+      [29] aload_0 v0
+      [30] aload_0 v0
+      [31] getfield #24
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.b Landroid/webkit/WebView;]
+      [34] invokespecial #47
+        + Methodref [kr/co/smartylab/CafeRemoteOrderApp/c.<init> (Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;Landroid/webkit/WebView;)V]
+      [37] putfield #25
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.c Lkr/co/smartylab/CafeRemoteOrderApp/c;]
+      [40] aload_0 v0
+      [41] new #21
+        + Class [kr/co/smartylab/CafeRemoteOrderApp/b]
+      [44] dup
+      [45] aload_0 v0
+      [46] invokespecial #46
+        + Methodref [kr/co/smartylab/CafeRemoteOrderApp/b.<init> (Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;)V]
+      [49] putfield #26
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.d Lkr/co/smartylab/CafeRemoteOrderApp/b;]
+      [52] aload_0 v0
+      [53] getfield #24
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.b Landroid/webkit/WebView;]
+      [56] invokevirtual #33
+        + Methodref [android/webkit/WebView.getSettings ()Landroid/webkit/WebSettings;]
+      [59] iconst_1
+      [60] invokevirtual #31
+        + Methodref [android/webkit/WebSettings.setJavaScriptEnabled (Z)V]
+      [63] aload_0 v0
+      [64] getfield #24
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.b Landroid/webkit/WebView;]
+      [67] aload_0 v0
+      [68] getfield #25
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.c Lkr/co/smartylab/CafeRemoteOrderApp/c;]
+      [71] ldc #5
+        + String [LocationProvider]
+      [73] invokevirtual #32
+        + Methodref [android/webkit/WebView.addJavascriptInterface (Ljava/lang/Object;Ljava/lang/String;)V]
+      [76] aload_0 v0
+      [77] getfield #24
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.b Landroid/webkit/WebView;]
+      [80] aload_0 v0
+      [81] getfield #26
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.d Lkr/co/smartylab/CafeRemoteOrderApp/b;]
+      [84] ldc #4
+        + String [LifecycleHelper]
+      [86] invokevirtual #32
+        + Methodref [android/webkit/WebView.addJavascriptInterface (Ljava/lang/Object;Ljava/lang/String;)V]
+      [89] aload_0 v0
+      [90] invokevirtual #43
+        + Methodref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.getAssets ()Landroid/content/res/AssetManager;]
+      [93] astore_2 v2
+      [94] aconst_null
+      [95] astore_3 v3
+      [96] aload_2 v2
+      [97] ldc #10
+        + String [web/index.html]
+      [99] invokevirtual #30
+        + Methodref [android/content/res/AssetManager.open (Ljava/lang/String;)Ljava/io/InputStream;]
+      [102] astore v4
+      [104] aload v4
+      [106] invokevirtual #38
+        + Methodref [java/io/InputStream.available ()I]
+      [109] istore v5
+      [111] iload v5
+      [113] newarray 8
+      [115] astore v6
+      [117] aload v4
+      [119] aload v6
+      [121] invokevirtual #40
+        + Methodref [java/io/InputStream.read ([B)I]
+      [124] pop
+      [125] aload v4
+      [127] invokevirtual #39
+        + Methodref [java/io/InputStream.close ()V]
+      [130] new #18
+        + Class [java/lang/String]
+      [133] dup
+      [134] aload v6
+      [136] invokespecial #41
+        + Methodref [java/lang/String.<init> ([B)V]
+      [139] astore_3 v3
+      [140] goto +10 (target=150)
+      [143] astore v5
+      [145] aload v5
+      [147] invokevirtual #37
+        + Methodref [java/io/IOException.printStackTrace ()V]
+      [150] aload_0 v0
+      [151] getfield #24
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.b Landroid/webkit/WebView;]
+      [154] new #20
+        + Class [kr/co/smartylab/CafeRemoteOrderApp/a]
+      [157] dup
+      [158] aload_0 v0
+      [159] invokespecial #45
+        + Methodref [kr/co/smartylab/CafeRemoteOrderApp/a.<init> (Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;)V]
+      [162] invokevirtual #36
+        + Methodref [android/webkit/WebView.setWebChromeClient (Landroid/webkit/WebChromeClient;)V]
+      [165] aload_0 v0
+      [166] getfield #24
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.b Landroid/webkit/WebView;]
+      [169] ldc #6
+        + String [file:///android_asset/]
+      [171] aload_3 v3
+      [172] ldc #8
+        + String [text/html]
+      [174] ldc #9
+        + String [utf-8]
+      [176] ldc #3
+        + String []
+      [178] invokevirtual #34
+        + Methodref [android/webkit/WebView.loadDataWithBaseURL (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V]
+      [181] return
+      Code attribute exceptions (count = 1):
+      - ExceptionInfo (96 -> 140: 143):
+      + Class [java/io/IOException]
+      Code attribute attributes (attribute count = 1):
+      + Stack map table attribute (count = 2):
+        - [143] Var: [a:kr/co/smartylab/CafeRemoteOrderApp/MyActivity][a:android/os/Bundle][a:android/content/res/AssetManager][a:java/lang/String], Stack: [a:java/io/IOException]
+        - [150] Var: ..., Stack: (empty)
+  + Method:       onKeyDown(ILandroid/view/KeyEvent;)Z
+    Access flags: 0x1
+      = public boolean onKeyDown(int,android.view.KeyEvent)
+    Class member attributes (count = 1):
+    + Code attribute instructions (code length = 23, locals = 3, stack = 3):
+      [0] iload_1 v1
+      [1] iconst_4
+      [2] ificmpne +14 (target=16)
+      [5] aload_0 v0
+      [6] getfield #24
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.b Landroid/webkit/WebView;]
+      [9] ldc #7
+        + String [javascript:listenBackButtonPressed()]
+      [11] invokevirtual #35
+        + Methodref [android/webkit/WebView.loadUrl (Ljava/lang/String;)V]
+      [14] iconst_0
+      [15] ireturn
+      [16] aload_0 v0
+      [17] iload_1 v1
+      [18] aload_2 v2
+      [19] invokespecial #29
+        + Methodref [android/app/Activity.onKeyDown (ILandroid/view/KeyEvent;)Z]
+      [22] ireturn
+      Code attribute exceptions (count = 0):
+      Code attribute attributes (attribute count = 1):
+      + Stack map table attribute (count = 1):
+        - [16] Var: ..., Stack: (empty)
+  + Method:       a(Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;Landroid/location/Location;)Landroid/location/Location;
+    Access flags: 0x1008
+      = static synthetic android.location.Location a(kr.co.smartylab.CafeRemoteOrderApp.MyActivity,android.location.Location)
+    Class member attributes (count = 1):
+    + Code attribute instructions (code length = 7, locals = 2, stack = 3):
+      [0] aload_0 v0
+      [1] aload_1 v1
+      [2] dup_x1
+      [3] putfield #23
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.a Landroid/location/Location;]
+      [6] areturn
+      Code attribute exceptions (count = 0):
+      Code attribute attributes (attribute count = 0):
+
+Class file attributes (count = 0):
+
+_____________________________________________________________________
++ Program class: kr/co/smartylab/CafeRemoteOrderApp/a
+  Superclass:    android/webkit/WebChromeClient
+  Major version: 0x33
+  Minor version: 0x0
+  Access flags:  0x20
+    = class kr.co.smartylab.CafeRemoteOrderApp.a extends android.webkit.WebChromeClient
+
+Interfaces (count = 0):
+
+Constant Pool (count = 23):
+  + Class [android/webkit/GeolocationPermissions$Callback]
+  + Class [android/webkit/WebChromeClient]
+  + Class [kr/co/smartylab/CafeRemoteOrderApp/a]
+  + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/a.a Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;]
+  + Methodref [android/webkit/WebChromeClient.<init> ()V]
+  + InterfaceMethodref [android/webkit/GeolocationPermissions$Callback.invoke (Ljava/lang/String;ZZ)V]
+  + NameAndType [<init> ()V]
+  + NameAndType [a Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;]
+  + NameAndType [invoke (Ljava/lang/String;ZZ)V]
+  + Utf8 [()V]
+  + Utf8 [(Ljava/lang/String;Landroid/webkit/GeolocationPermissions$Callback;)V]
+  + Utf8 [(Ljava/lang/String;ZZ)V]
+  + Utf8 [(Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;)V]
+  + Utf8 [<init>]
+  + Utf8 [Code]
+  + Utf8 [Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;]
+  + Utf8 [a]
+  + Utf8 [android/webkit/GeolocationPermissions$Callback]
+  + Utf8 [android/webkit/WebChromeClient]
+  + Utf8 [invoke]
+  + Utf8 [kr/co/smartylab/CafeRemoteOrderApp/a]
+  + Utf8 [onGeolocationPermissionsShowPrompt]
+
+Fields (count = 1):
+  + Field:        a Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;
+    Access flags: 0x1010
+      = final synthetic kr.co.smartylab.CafeRemoteOrderApp.MyActivity a
+
+Methods (count = 2):
+  - Method:       <init>(Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;)V
+    Access flags: 0x0
+      = a(kr.co.smartylab.CafeRemoteOrderApp.MyActivity)
+    Class member attributes (count = 1):
+    + Code attribute instructions (code length = 10, locals = 2, stack = 2):
+      [0] aload_0 v0
+      [1] aload_1 v1
+      [2] putfield #4
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/a.a Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;]
+      [5] aload_0 v0
+      [6] invokespecial #5
+        + Methodref [android/webkit/WebChromeClient.<init> ()V]
+      [9] return
+      Code attribute exceptions (count = 0):
+      Code attribute attributes (attribute count = 0):
+  + Method:       onGeolocationPermissionsShowPrompt(Ljava/lang/String;Landroid/webkit/GeolocationPermissions$Callback;)V
+    Access flags: 0x1
+      = public void onGeolocationPermissionsShowPrompt(java.lang.String,android.webkit.GeolocationPermissions$Callback)
+    Class member attributes (count = 1):
+    + Code attribute instructions (code length = 10, locals = 3, stack = 4):
+      [0] aload_2 v2
+      [1] aload_1 v1
+      [2] iconst_1
+      [3] iconst_0
+      [4] invokeinterface #6
+        + InterfaceMethodref [android/webkit/GeolocationPermissions$Callback.invoke (Ljava/lang/String;ZZ)V]
+      [9] return
+      Code attribute exceptions (count = 0):
+      Code attribute attributes (attribute count = 0):
+
+Class file attributes (count = 0):
+
+_____________________________________________________________________
++ Program class: kr/co/smartylab/CafeRemoteOrderApp/b
+  Superclass:    java/lang/Object
+  Major version: 0x33
+  Minor version: 0x0
+  Access flags:  0x20
+    = class kr.co.smartylab.CafeRemoteOrderApp.b extends java.lang.Object
+
+Interfaces (count = 0):
+
+Constant Pool (count = 15):
+  + Class [java/lang/Object]
+  + Class [kr/co/smartylab/CafeRemoteOrderApp/b]
+  + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/b.a Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;]
+  + Methodref [java/lang/Object.<init> ()V]
+  + NameAndType [<init> ()V]
+  + NameAndType [a Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;]
+  + Utf8 [()V]
+  + Utf8 [(Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;)V]
+  + Utf8 [<init>]
+  + Utf8 [Code]
+  + Utf8 [Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;]
+  + Utf8 [a]
+  + Utf8 [java/lang/Object]
+  + Utf8 [kr/co/smartylab/CafeRemoteOrderApp/b]
+
+Fields (count = 1):
+  + Field:        a Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;
+    Access flags: 0x1010
+      = final synthetic kr.co.smartylab.CafeRemoteOrderApp.MyActivity a
+
+Methods (count = 1):
+  - Method:       <init>(Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;)V
+    Access flags: 0x0
+      = b(kr.co.smartylab.CafeRemoteOrderApp.MyActivity)
+    Class member attributes (count = 1):
+    + Code attribute instructions (code length = 10, locals = 2, stack = 2):
+      [0] aload_0 v0
+      [1] aload_1 v1
+      [2] putfield #3
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/b.a Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;]
+      [5] aload_0 v0
+      [6] invokespecial #4
+        + Methodref [java/lang/Object.<init> ()V]
+      [9] return
+      Code attribute exceptions (count = 0):
+      Code attribute attributes (attribute count = 0):
+
+Class file attributes (count = 0):
+
+_____________________________________________________________________
++ Program class: kr/co/smartylab/CafeRemoteOrderApp/c
+  Superclass:    java/lang/Object
+  Major version: 0x33
+  Minor version: 0x0
+  Access flags:  0x20
+    = class kr.co.smartylab.CafeRemoteOrderApp.c extends java.lang.Object
+
+Interfaces (count = 1):
+  + Class [android/location/LocationListener]
+
+Constant Pool (count = 40):
+  + String [javascript:updateLocation('args')]
+  + Class [android/location/LocationListener]
+  + Class [android/webkit/WebView]
+  + Class [java/lang/Object]
+  + Class [kr/co/smartylab/CafeRemoteOrderApp/MyActivity]
+  + Class [kr/co/smartylab/CafeRemoteOrderApp/c]
+  + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/c.a Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;]
+  + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/c.b Landroid/webkit/WebView;]
+  + Methodref [android/webkit/WebView.loadUrl (Ljava/lang/String;)V]
+  + Methodref [java/lang/Object.<init> ()V]
+  + Methodref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.a (Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;Landroid/location/Location;)Landroid/location/Location;]
+  + NameAndType [<init> ()V]
+  + NameAndType [a (Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;Landroid/location/Location;)Landroid/location/Location;]
+  + NameAndType [a Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;]
+  + NameAndType [b Landroid/webkit/WebView;]
+  + NameAndType [loadUrl (Ljava/lang/String;)V]
+  + Utf8 [()V]
+  + Utf8 [(Landroid/location/Location;)V]
+  + Utf8 [(Ljava/lang/String;)V]
+  + Utf8 [(Ljava/lang/String;ILandroid/os/Bundle;)V]
+  + Utf8 [(Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;Landroid/location/Location;)Landroid/location/Location;]
+  + Utf8 [(Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;Landroid/webkit/WebView;)V]
+  + Utf8 [<init>]
+  + Utf8 [Code]
+  + Utf8 [Landroid/webkit/WebView;]
+  + Utf8 [Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;]
+  + Utf8 [a]
+  + Utf8 [android/location/LocationListener]
+  + Utf8 [android/webkit/WebView]
+  + Utf8 [b]
+  + Utf8 [java/lang/Object]
+  + Utf8 [javascript:updateLocation('args')]
+  + Utf8 [kr/co/smartylab/CafeRemoteOrderApp/MyActivity]
+  + Utf8 [kr/co/smartylab/CafeRemoteOrderApp/c]
+  + Utf8 [loadUrl]
+  + Utf8 [onLocationChanged]
+  + Utf8 [onProviderDisabled]
+  + Utf8 [onProviderEnabled]
+  + Utf8 [onStatusChanged]
+
+Fields (count = 2):
+  + Field:        b Landroid/webkit/WebView;
+    Access flags: 0x2
+      = private android.webkit.WebView b
+  + Field:        a Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;
+    Access flags: 0x1010
+      = final synthetic kr.co.smartylab.CafeRemoteOrderApp.MyActivity a
+
+Methods (count = 5):
+  - Method:       <init>(Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;Landroid/webkit/WebView;)V
+    Access flags: 0x1
+      = public c(kr.co.smartylab.CafeRemoteOrderApp.MyActivity,android.webkit.WebView)
+    Class member attributes (count = 1):
+    + Code attribute instructions (code length = 15, locals = 3, stack = 2):
+      [0] aload_0 v0
+      [1] aload_1 v1
+      [2] putfield #7
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/c.a Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;]
+      [5] aload_0 v0
+      [6] invokespecial #10
+        + Methodref [java/lang/Object.<init> ()V]
+      [9] aload_0 v0
+      [10] aload_2 v2
+      [11] putfield #8
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/c.b Landroid/webkit/WebView;]
+      [14] return
+      Code attribute exceptions (count = 0):
+      Code attribute attributes (attribute count = 0):
+  + Method:       onLocationChanged(Landroid/location/Location;)V
+    Access flags: 0x1
+      = public void onLocationChanged(android.location.Location)
+    Class member attributes (count = 1):
+    + Code attribute instructions (code length = 19, locals = 2, stack = 2):
+      [0] aload_0 v0
+      [1] getfield #7
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/c.a Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;]
+      [4] aload_1 v1
+      [5] invokestatic #11
+        + Methodref [kr/co/smartylab/CafeRemoteOrderApp/MyActivity.a (Lkr/co/smartylab/CafeRemoteOrderApp/MyActivity;Landroid/location/Location;)Landroid/location/Location;]
+      [8] pop
+      [9] aload_0 v0
+      [10] getfield #8
+        + Fieldref [kr/co/smartylab/CafeRemoteOrderApp/c.b Landroid/webkit/WebView;]
+      [13] ldc #1
+        + String [javascript:updateLocation('args')]
+      [15] invokevirtual #9
+        + Methodref [android/webkit/WebView.loadUrl (Ljava/lang/String;)V]
+      [18] return
+      Code attribute exceptions (count = 0):
+      Code attribute attributes (attribute count = 0):
+  + Method:       onStatusChanged(Ljava/lang/String;ILandroid/os/Bundle;)V
+    Access flags: 0x1
+      = public void onStatusChanged(java.lang.String,int,android.os.Bundle)
+    Class member attributes (count = 1):
+    + Code attribute instructions (code length = 1, locals = 4, stack = 0):
+      [0] return
+      Code attribute exceptions (count = 0):
+      Code attribute attributes (attribute count = 0):
+  + Method:       onProviderEnabled(Ljava/lang/String;)V
+    Access flags: 0x1
+      = public void onProviderEnabled(java.lang.String)
+    Class member attributes (count = 1):
+    + Code attribute instructions (code length = 1, locals = 2, stack = 0):
+      [0] return
+      Code attribute exceptions (count = 0):
+      Code attribute attributes (attribute count = 0):
+  + Method:       onProviderDisabled(Ljava/lang/String;)V
+    Access flags: 0x1
+      = public void onProviderDisabled(java.lang.String)
+    Class member attributes (count = 1):
+    + Code attribute instructions (code length = 1, locals = 2, stack = 0):
+      [0] return
+      Code attribute exceptions (count = 0):
+      Code attribute attributes (attribute count = 0):
+
+Class file attributes (count = 0):
+

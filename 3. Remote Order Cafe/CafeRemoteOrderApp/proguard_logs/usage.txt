@@ -1,0 +1,11 @@
+kr.co.smartylab.CafeRemoteOrderApp.BuildConfig
+kr.co.smartylab.CafeRemoteOrderApp.MyActivity$LifecycleHelper:
+    56:57:public void finishApp()
+kr.co.smartylab.CafeRemoteOrderApp.MyActivity$LocationProvider:
+    27:27:public java.lang.String getLocation()
+kr.co.smartylab.CafeRemoteOrderApp.R
+kr.co.smartylab.CafeRemoteOrderApp.R$attr
+kr.co.smartylab.CafeRemoteOrderApp.R$drawable
+kr.co.smartylab.CafeRemoteOrderApp.R$id
+kr.co.smartylab.CafeRemoteOrderApp.R$layout
+kr.co.smartylab.CafeRemoteOrderApp.R$string

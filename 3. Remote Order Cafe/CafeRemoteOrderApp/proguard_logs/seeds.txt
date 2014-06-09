@@ -1,0 +1,7 @@
+kr.co.smartylab.CafeRemoteOrderApp.MyActivity
+kr.co.smartylab.CafeRemoteOrderApp.MyActivity: MyActivity()
+kr.co.smartylab.CafeRemoteOrderApp.R$drawable: int ic_launcher
+kr.co.smartylab.CafeRemoteOrderApp.R$drawable: int rocon_log
+kr.co.smartylab.CafeRemoteOrderApp.R$id: int webView
+kr.co.smartylab.CafeRemoteOrderApp.R$layout: int main
+kr.co.smartylab.CafeRemoteOrderApp.R$string: int app_name

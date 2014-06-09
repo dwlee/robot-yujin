@@ -1,0 +1,20 @@
+kr.co.smartylab.CafeRemoteOrderApp.MyActivity -> kr.co.smartylab.CafeRemoteOrderApp.MyActivity:
+    android.location.Location lastLocation -> a
+    android.webkit.WebView webView -> b
+    kr.co.smartylab.CafeRemoteOrderApp.MyActivity$LocationProvider locationProvider -> c
+    kr.co.smartylab.CafeRemoteOrderApp.MyActivity$LifecycleHelper lifecycleHelper -> d
+    void onCreate(android.os.Bundle) -> onCreate
+    boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
+    android.location.Location access$002(kr.co.smartylab.CafeRemoteOrderApp.MyActivity,android.location.Location) -> a
+kr.co.smartylab.CafeRemoteOrderApp.MyActivity$1 -> kr.co.smartylab.CafeRemoteOrderApp.a:
+    kr.co.smartylab.CafeRemoteOrderApp.MyActivity this$0 -> a
+    void onGeolocationPermissionsShowPrompt(java.lang.String,android.webkit.GeolocationPermissions$Callback) -> onGeolocationPermissionsShowPrompt
+kr.co.smartylab.CafeRemoteOrderApp.MyActivity$LifecycleHelper -> kr.co.smartylab.CafeRemoteOrderApp.b:
+    kr.co.smartylab.CafeRemoteOrderApp.MyActivity this$0 -> a
+kr.co.smartylab.CafeRemoteOrderApp.MyActivity$LocationProvider -> kr.co.smartylab.CafeRemoteOrderApp.c:
+    android.webkit.WebView webView -> b
+    kr.co.smartylab.CafeRemoteOrderApp.MyActivity this$0 -> a
+    void onLocationChanged(android.location.Location) -> onLocationChanged
+    void onStatusChanged(java.lang.String,int,android.os.Bundle) -> onStatusChanged
+    void onProviderEnabled(java.lang.String) -> onProviderEnabled
+    void onProviderDisabled(java.lang.String) -> onProviderDisabled
