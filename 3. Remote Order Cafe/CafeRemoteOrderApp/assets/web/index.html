@@ -135,6 +135,7 @@ $(function() {
     window.listenBackButtonPressed = listenBackButtonPressed;
 
     var ros = new ROSLIB.Ros();
+    settingROSCallbacks();
     var orderUID; // uid of order
     var orderInfo; // Packed order info; JSON
 
@@ -142,10 +143,10 @@ $(function() {
     var inProgress = false;
     var statusLbs = ["Ready", "In Progress", "Completed", "OVER_QUERY_LIMIT", "FAILED"];
 
-    var ipsetting = [{title:"Dorothy Cafe",ip:"10.189.22.146:9090"},
+    var ipsetting = [{title:"Dorothy Cafe",ip:"10.209.48.207:9090"},
                      {title:"MapoNaru",ip:"192.168.0.101:9090"},
-                     {title:"Alley Pub",ip:"192.168.0.101:9090"},
-                     {title:"Paris Baguette",ip:"192.168.0.101:9090"},
+                     {title:"Alley Pub",ip:"192.168.0.102:9090"},
+                     {title:"Paris Baguette",ip:"192.168.0.103:9090"},
                      ];
 
     var cards = [{image:"file:///android_asset/web/res/0030_anwansoon.png",number:"1234-5678-****-****",name:"card_1"},
@@ -194,6 +195,9 @@ $(function() {
     $(".page-header").html("<h1>"+$(".remote-server-combobox option:selected").text()+" Remote Order App</h1>")
     $(".section-content-menu").html(menu_contents);                  
     $("#lb-status").html(statusLbs[0]);
+    var result = $.grep(ipsetting, function(e){ return e.title == menus[0].name; });
+    $("#server-addr").val(result[0].ip);
+    
 
     // ------------------------------------------------
     // Event handlers
@@ -216,6 +220,8 @@ $(function() {
         }
         setButtonHandler();
         $(".page-header").html("<h1>"+selected_server+" Remote Order App</h1>")
+        var result = $.grep(ipsetting, function(e){ return e.title == selected_server; });
+        $("#server-addr").val(result[0].ip);
 
     });
     
@@ -255,7 +261,7 @@ $(function() {
         for (i = 0; i < orderInfo.length; i++){
             payment_contents += "<p><b>Name:</b> "+orderInfo[i].name+"</p>";
             payment_contents += "<p><b>Qty.</b>: "+orderInfo[i].qty+ "<b>     Price</b>: &#65510; "+orderInfoPrice[i]+"</p>";
-            payment_contents += "<hr/>";
+            payment_contents += "<hr></hr>";
             total_price += orderInfoPrice[i];
         }
         payment_contents += "<p><b>Total Price:</b> &#65510; "+total_price+"</p>";
@@ -274,6 +280,15 @@ $(function() {
            $(e.currentTarget).css("height","54px").css("border","2px solid blue");
         });
 
+    });
+    $("#btn-set").on("touchstart", function(e) {
+        var selected_server = $(".remote-server-combobox option:selected").text();
+        ipsetting.forEach(function(data){
+                            if(data.title === selected_server){
+                                data.ip = $("#server-addr").val();
+                            }
+                          });
+                          
     });
     
     function setButtonHandler(){
@@ -359,7 +374,8 @@ $(function() {
     function calcRoute(from, to, isUpdating) {
         $("#lb-status").html("calcRoute");
         var dist = Math.abs(lastLocation.lat()-destination.lat())+Math.abs(lastLocation.lng()-destination.lng());
-        if (dist < 0.001){
+        console.log("remained: "+dist);
+        if (dist < 0.0005){
             finishSimulation();
             return;
         }
@@ -475,6 +491,7 @@ $(function() {
         if(serverAddr == undefined || serverAddr == "") {
             ros.connect('ws://localhost:9090');
         } else {
+            console.log("connect ip: "+serverAddr);
             ros.connect('ws://'+serverAddr);
         }
         orderTopic.publish(orderMsg);
@@ -486,6 +503,24 @@ $(function() {
             messageType : 'cafe_msgs/RemoteOrderStatus'
         });
     }
+     function settingROSCallbacks()                      
+      {
+        console.log("settingROSCallbacks");
+        ros.on('connection',function() {
+          console.log("Connected");
+        }
+        );
+        ros.on('error',function(e) {
+          console.log("Error!",e);
+        }
+        );
+                                                     
+        ros.on('close',function() {
+          console.log("Connection Close!");
+        }
+        );
+
+      }
 
     function updateOrder(expectedArrivalTime) {
         ms = moment(expectedArrivalTime).diff(moment(new Date()));
@@ -673,6 +708,11 @@ $(function() {
         background: #8e908c;
         text-align: center;
     }
+    #btn-set {
+        color: #fff;
+        background: #8e908c;
+        text-align: center;
+    }
 
     .menu-img {
         max-width:100%;
@@ -720,16 +760,16 @@ $(function() {
     </div>
 </div>
 
-
 <div class="section">
     <div class="section-content">
-        <select id="cc" class="remote-server-combobox" name="dept" style="float: left; width: 70%; height: 47px; line-height: 40px; padding: 1%;">
+        <select id="cc" class="remote-server-combobox" name="dept" 
+                style="margin:1%; float: left; width: 65%; height: 47px; padding: 1%;">
         </select>
-        <!--
-            <input id="server-addr" placeholder="Server Address (Do not put any protocol prefix like 'http')"
-               style="float: left; width: 70%; height: 40px; line-height: 30px; padding: 1%;">
-        -->
-        <div id="btn-order" style="float: right; width: 25%; height: 40px; line-height: 40px; padding: 1%;">Order</div>
+        <div id="btn-order" style="margin:1%; float: right; width: 25%; height: 40px; line-height: 40px; padding: 1%;">Order</div>
+
+        <input id="server-addr" placeholder=""
+               style="margin:1%; float: left; width: 63%; height: 35px;  padding: 1%;">
+        <div id="btn-set" style="margin:1%; float: right; width: 25%; height: 40px; line-height: 40px; padding: 1%;">IP Set</div>
     </div>
 </div>
 
